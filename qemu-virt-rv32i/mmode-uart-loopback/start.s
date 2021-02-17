@@ -9,7 +9,7 @@ _start:
   csrr  t0      , mhartid
   bnez  t0      , _wait_for_intr
 
-  # disable interrupt
+  # interrupt disable
   csrw  mstatus , zero
   csrw  mie     , zero
 
