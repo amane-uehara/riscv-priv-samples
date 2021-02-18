@@ -25,6 +25,20 @@ _start:
   mret
 
 _s_mode_entry:
+  # set scause.SPP = 0x0 (U-MODE)
+  csrr  t0      , sstatus
+  li    t1      , 0xFFFFFEFF # ~(1 << 8)
+  and   t0      , t0 , t1
+  csrw  sstatus , t0         # sstatus.SPP = 0
+
+  # set entry address for U-MODE
+  la    t0      , _u_mode_entry
+  csrw  sepc    , t0
+
+  # go to U-MODE
+  sret
+
+_u_mode_entry:
   j     _end
 
 _end:
