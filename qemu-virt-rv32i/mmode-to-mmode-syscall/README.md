@@ -1,0 +1,37 @@
+# build and run
+
+```sh
+$ sh build.sh
+(press CTRL+C)
+(press A key)
+(type info registers)
+(press ENTER KEY)
+(press CTRL+X)
+```
+
+# result
+
+```sh
+QEMU 4.2.1 monitor - type 'help' for more information
+(qemu) info registers
+ pc       80000044
+ mhartid  00000000
+ mstatus  00000080
+ mip      0x0
+ mie      00000000
+ mideleg  00000000
+ medeleg  00000000
+ mtvec    80000048
+ mepc     80000034
+ mcause   0000000b
+ x0/zero 00000000 x1/ra 00000000 x2/sp 80010000 x3/gp 00000000
+ x4/tp 00000000 x5/t0 80000048 x6/t1 fffffff7 x7/t2 00000000
+ x8/s0 00000000 x9/s1 00000000 x10/a0 80000034 x11/a1 00001020
+ x12/a2 00000000 x13/a3 00000000 x14/a4 00000000 x15/a5 00000000
+ x16/a6 00000000 x17/a7 00000000 x18/s2 00000000 x19/s3 00000000
+ x20/s4 00000000 x21/s5 00000000 x22/s6 00000000 x23/s7 00000000
+ x24/s8 00000000 x25/s9 00000000 x26/s10 00000000 x27/s11 00000000
+ x28/t3 00000000 x29/t4 00000000 x30/t5 0000000b x31/t6 22222222
+ f0/ft0 0000000000000000 f1/ft1 0000000000000000 f2/ft2 0000000000000000 f3/ft3 0000000000000000
+ ...
+```
