@@ -1,4 +1,4 @@
-void trap_vector(void);
+extern void _trap_vector(void);
 void main(void);
 extern void _timer_add(unsigned int t);
 
@@ -6,7 +6,7 @@ void main(void) {
   unsigned int x;
 
   // set trap vector
-  x = (unsigned int) trap_vector;
+  x = (unsigned int) _trap_vector;
   asm volatile("csrw mtvec, %0" : : "r" (x));
 
   // disable all interrupt
@@ -25,10 +25,4 @@ void main(void) {
   asm volatile("csrw mstatus, %0" : : "r" (x));
   x = 1 << 7;  // mie.MTIE
   asm volatile("csrw mie, %0" : : "r" (x));
-}
-
-void trap_vector(void) {
-  asm volatile("addi x31, x31, 1");
-  _timer_add(100000);
-  asm volatile("mret");
 }
