@@ -37,6 +37,9 @@ _timer_add:
   ret
 
 main:
+  addi sp, sp, -4
+  sw   ra, 0(sp)
+
   # disable all interrupt
   csrr t0, mstatus
   li   t1, 0xFFFFFFF7 # x &= ~(1 << 3); // mstatus.MIE
@@ -65,6 +68,8 @@ main:
   li   t0, 0x80 # x = 1 << 5;  // sie.MTIE
   csrw mie, t0
 
+  lw   ra, 0(sp)
+  addi sp, sp, 4
   ret
 
 trap_vector:

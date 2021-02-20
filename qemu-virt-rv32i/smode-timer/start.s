@@ -64,6 +64,9 @@ main:
   mret
 
 smode_entry:
+  addi sp, sp, -4
+  sw   ra, 0(sp)
+
   # set trap vector
   la t0, trap_vector;
   csrw stvec, t0
@@ -80,6 +83,8 @@ smode_entry:
   li   t0, 0x20 # x = 1 << 5;  // sie.STIE
   csrw sie, t0
 
+  lw   ra, 0(sp)
+  addi sp, sp, 4
   ret
 
 trap_vector:
