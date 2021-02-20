@@ -1,6 +1,7 @@
 .GLOBAL _start
 .GLOBAL _timer_add
-.GLOBAL trap_vector
+.GLOBAL m_trap_vector
+.GLOBAL s_trap_vector
 .GLOBAL _wait_for_intr
 .GLOBAL main
 .GLOBAL smode_entry
@@ -38,6 +39,9 @@ _timer_add:
   ret
 
 main:
+  addi sp, sp, -4
+  sw   ra, 0(sp)
+
   # disable all interrupt
   csrr t0, mstatus
   li   t1, 0xFFFFFFF7 # x &= ~(1 << 3); // mstatus.MIE
@@ -45,10 +49,32 @@ main:
   csrw mstatus, t0
   csrw mie, zero
 
-  # timer interrupt delegation
-  li   t0, 0xFFFF # x = 0xffff
+  # set trap vector
+  la t0, m_trap_vector
+  csrw mtvec, t0
+
+  # init timer
+  li a0, 100000
+  jal _timer_add
+
+  # set sip.STIP
+  csrr t0, mip
+  li   t1, 0x20 # (1 << 5)  // sip.STIP
+  or   t0, t0, t1
+  csrw mip, t0
+
+  # interrupt delegation
+  li t0, 0xFFFF
   csrw mideleg, t0
   csrw medeleg, t0
+
+  # enable timer interrupt
+  csrr t0, mstatus
+  li   t1, 8 # x |= (1 << 3); // mstatus.MIE
+  or   t0, t0, t1
+  csrw mstatus, t0
+  li   t0, 0x80 # x = 1 << 5;  // mie.MTIE
+  csrw mie, t0
 
   # goto supervisor mode
   csrr t0, mstatus
@@ -61,37 +87,51 @@ main:
   la   t0, smode_entry
   csrw mepc, t0
 
+  lw   ra, 0(sp)
+  addi sp, sp, 4
   mret
 
 smode_entry:
-  addi sp, sp, -4
-  sw   ra, 0(sp)
-
   # set trap vector
-  la t0, trap_vector;
+  la t0, s_trap_vector
   csrw stvec, t0
-
-  # init timer
-  li a0, 100000
-  jal _timer_add
 
   # enable timer interrupt
   csrr t0, sstatus
   li   t1, 2 # x |= 1 << 1; // sstatus.SIE
   or   t0, t0, t1
   csrw sstatus, t0
-  li   t0, 0x20 # x = 1 << 5;  // sie.STIE
-  csrw sie, t0
 
-  lw   ra, 0(sp)
-  addi sp, sp, 4
   ret
 
-trap_vector:
-  # memo timer count
-  addi x31, x31, 1
+m_trap_vector:
+  # clear mip.MTIP
+  li   a0 , 0xFFFFFFFF
+  jal  _timer_add
+
+  # set sie.STIE
+  csrr t0, mie
+  li   t1, 0x20 # (1 << 5)  // sip.STIP
+  or   t0, t0, t1
+  csrw mie, t0
+
+  addi x30, x30, 1
+
+  mret
+
+s_trap_vector:
+  csrr x29, scause
 
   # set time span for next timer interrupt
-  li   a0 , 100000
+  li   a0 , 0x10000
   jal  _timer_add
+
+  # clear sie.STIE (sip.STIP cannot be cleared)
+  csrr t0, sie
+  li   t1, 0xFFFFFFDF # ~(1 << 5)  // sie.STIE
+  and  t0, t0, t1
+  csrw sie, zero
+
+  # memo timer count
+  addi x31, x31, 1
   sret
