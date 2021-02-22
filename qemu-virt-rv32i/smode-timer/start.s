@@ -57,12 +57,6 @@ main:
   li a0, 100000
   jal _timer_add
 
-  # set sip.STIP
-  csrr t0, mip
-  li   t1, 0x20 # (1 << 5)  // sip.STIP
-  or   t0, t0, t1
-  csrw mip, t0
-
   # interrupt delegation
   li t0, 0xFFFF
   csrw mideleg, t0
@@ -102,6 +96,12 @@ smode_entry:
   or   t0, t0, t1
   csrw sstatus, t0
 
+  # set sie.SSIE
+  csrr t0, sie
+  li   t1, 2 # (1 << 1)  // sie.SSIE
+  or   t0, t0, t1
+  csrw sie, t0
+
   ret
 
 m_trap_vector:
@@ -109,11 +109,11 @@ m_trap_vector:
   li   a0 , 0xFFFFFFFF
   jal  _timer_add
 
-  # set sie.STIE
-  csrr t0, mie
-  li   t1, 0x20 # (1 << 5)  // sip.STIP
+  # set sip.SSIP
+  csrr t0, sip
+  li   t1, 2 # (1 << 1)  // sip.SSIP
   or   t0, t0, t1
-  csrw mie, t0
+  csrw sip, t0
 
   addi x30, x30, 1
 
@@ -126,11 +126,11 @@ s_trap_vector:
   li   a0 , 0x10000
   jal  _timer_add
 
-  # clear sie.STIE (sip.STIP cannot be cleared)
-  csrr t0, sie
-  li   t1, 0xFFFFFFDF # ~(1 << 5)  // sie.STIE
+  # clear sip.SSIP (sip.STIP cannot be cleared)
+  csrr t0, sip
+  li   t1, 0xFFFFFFFD # ~(1 << 1)  // sip.SSIP
   and  t0, t0, t1
-  csrw sie, zero
+  csrw sip, t0
 
   # memo timer count
   addi x31, x31, 1
