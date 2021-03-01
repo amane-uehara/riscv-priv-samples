@@ -2,11 +2,12 @@
 
 ```sh
 $ sh build.sh
-(press CTRL+C)
-(press A key)
+(press CTRL+A)
+(press C key)
 (type info mem)
 (press ENTER KEY)
-(press CTRL+X)
+(press CTRL+A)
+(press X key)
 ```
 
 # result

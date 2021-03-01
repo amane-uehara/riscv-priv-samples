@@ -13,4 +13,5 @@ hello world
 
 # how to exit qemu
 
-press CTRL + X
+* press CTRL + C
+* press X

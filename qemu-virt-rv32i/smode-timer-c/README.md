@@ -12,7 +12,8 @@ $ qemu-system-riscv32 -nographic -machine virt -bios none -kernel build/timer.el
 
 # how to check timer
 
-* press CTRL + c
+* press CTRL + A
+* press C
 * type `info registers`
 * check x31 register value
 
@@ -40,4 +41,5 @@ QEMU 4.2.1 monitor - type 'help' for more information
 
 # how to exit qemu
 
-press CTRL + X
+* press CTRL + A
+* press X
