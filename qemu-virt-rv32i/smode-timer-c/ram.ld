@@ -24,10 +24,5 @@ SECTIONS {
     * (.bss)
   }
 
-  .text : {
-    * (.filesystem_bin)
-  }
-
   _init_stack_ptr   = 0x80010000;
-  _user_program_ptr = 0x80020000;
 }
