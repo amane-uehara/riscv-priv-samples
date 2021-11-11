@@ -3,27 +3,27 @@ OUTPUT_ARCH("riscv")
 ENTRY(_start)
 
 MEMORY {
-  flash (rxai!w) : ORIGIN = 0x20400000, LENGTH = 128M
-  ram   (wxa!ri) : ORIGIN = 0x80000000, LENGTH = 64K
+  ROM   (rxai!w) : ORIGIN = 0x20400000, LENGTH = 1M
+  RAM   (wxa!ri) : ORIGIN = 0x80000000, LENGTH = 1M
 }
 
 SECTIONS {
   .text : {
     */start.o (.text);
     * (.text);
-  }
+  } > ROM
 
   .rodata : {
     * (.rodata)
-  }
+  } > ROM
 
   .data : {
     * (.sdata)
     * (.data)
-  }
+  } > ROM
 
   .bss : {
     * (.sbss .sbss.*)
     * (.bss)
-  }
+  } > RAM
 }
