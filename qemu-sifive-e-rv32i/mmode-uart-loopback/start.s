@@ -1,8 +1,6 @@
 .GLOBAL _start
 .GLOBAL _trap_vector
 .GLOBAL _uart_init
-.GLOBAL _stack_end
-.EQU STACK_SIZE, 1024
 
 .SECTION .text
 
@@ -12,7 +10,7 @@ _start:
   bnez  t0      , _wait_for_intr
 
   # initialize stack pointer
-  la    sp      , _stack_end + STACK_SIZE
+  la    sp      , _init_stack_ptr
 
   # interrupt disable
   csrr  t0      , mstatus
@@ -40,11 +38,4 @@ _start:
 
 _wait_for_intr:
   wfi
-  j             _wait_for_intr
-
-
-.SECTION .bss
-.ALIGN 4
-
-_stack_end:
-  .SKIP STACK_SIZE
+  j               _wait_for_intr

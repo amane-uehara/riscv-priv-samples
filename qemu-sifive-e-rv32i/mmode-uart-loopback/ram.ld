@@ -26,4 +26,6 @@ SECTIONS {
     * (.sbss .sbss.*)
     * (.bss)
   } > RAM
+
+  _init_stack_ptr   = 0x80001000;
 }
