@@ -1,7 +1,7 @@
 BUILD   := build
 TARGET  := timer
 RVVER   := riscv32-unknown-linux-gnu
-CC      := $(RVVER)-gcc -g -Os -march=rv32i -mabi=ilp32 -mcmodel=medany -ffunction-sections -fdata-sections -ffreestanding
+CC      := $(RVVER)-gcc -Os -march=rv32i -mabi=ilp32 -mcmodel=medany -ffunction-sections -fdata-sections -ffreestanding
 OUT     := -nostartfiles -nostdlib -nostdinc -static -lgcc -Wl,--nmagic -Wl,--gc-sections
 
 C_FILES := $(wildcard *.c)

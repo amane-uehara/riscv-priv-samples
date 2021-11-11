@@ -1,6 +1,5 @@
 #!/bin/sh
 riscv64-unknown-linux-gnu-gcc \
-  -g \
   -Os \
   -march=rv64i \
   -mabi=lp64 \
@@ -12,7 +11,6 @@ riscv64-unknown-linux-gnu-gcc \
   -c start.c
 
 riscv64-unknown-linux-gnu-gcc \
-  -g \
   -Os \
   -march=rv64i \
   -mabi=lp64 \

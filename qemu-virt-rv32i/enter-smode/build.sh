@@ -1,6 +1,5 @@
 #!/bin/sh
 riscv32-unknown-linux-gnu-gcc \
-  -g \
   -Os \
   -march=rv32i \
   -mabi=ilp32 \
@@ -11,7 +10,6 @@ riscv32-unknown-linux-gnu-gcc \
   -c start.s
 
 riscv32-unknown-linux-gnu-gcc \
-  -g \
   -Os \
   -march=rv32i \
   -mabi=ilp32 \
