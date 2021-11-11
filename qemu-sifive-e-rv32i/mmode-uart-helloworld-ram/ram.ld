@@ -27,5 +27,5 @@ SECTIONS {
     * (.bss)
   } > RAM AT > ROM
 
-  _init_stack_ptr   = 0x80010000;
+  _init_stack_ptr   = 0x80001000;
 }
