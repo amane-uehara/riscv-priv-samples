@@ -27,14 +27,18 @@ _uart_init:
   # uart ns16650 interrupt enable
   li  a4 , CONST_UART_IER_ADDR
   li  a0 , CONST_UART_IER_IE
-  sb  a0 , 0(a4)
+  sw  a0 , 0(a4)
 
   ret
 
 _uart_send:
-  andi a0 , a0 , 0xff
-  li   a4 , CONST_UART_THR_ADDR
-  sw   a0 , 0(a4)
+  li    a4 , CONST_UART_THR_ADDR
+
+_thr_check_loop:
+  lw    a1 , 0(a4)
+  bne   a1 , zero , _thr_check_loop
+
+  sw    a0 , 0(a4)
   ret
 
 _uart_receive:

@@ -11,6 +11,7 @@ _start:
   # initialize stack pointer
   la    sp      , _init_stack_ptr
 
+  addi x31, x31, 3
   jal             main
   j               _wait_for_intr
 
