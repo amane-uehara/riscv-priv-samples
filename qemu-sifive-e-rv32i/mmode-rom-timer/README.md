@@ -19,7 +19,7 @@ $ qemu-system-riscv32 -nographic -machine sifive_e -bios none -kernel build/time
 
 ```
 
-QEMU 4.2.1 monitor - type 'help' for more information
+QEMU 6.0.1 monitor - type 'help' for more information
 (qemu) info registers
  pc       00000000
  mhartid  00000000

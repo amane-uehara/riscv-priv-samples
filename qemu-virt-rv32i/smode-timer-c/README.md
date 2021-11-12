@@ -18,7 +18,7 @@ $ qemu-system-riscv32 -nographic -machine virt -bios none -kernel build/timer.el
 * check x31 register value
 
 ```
-QEMU 4.2.1 monitor - type 'help' for more information
+QEMU 6.0.1 monitor - type 'help' for more information
 (qemu) info registers
  pc       8000005c
  mhartid  00000000

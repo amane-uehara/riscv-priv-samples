@@ -13,7 +13,7 @@ $ sh build.sh
 # result
 
 ```sh
-QEMU 4.2.1 monitor - type 'help' for more information
+QEMU 6.0.1 monitor - type 'help' for more information
 (qemu) info mem
 vaddr    paddr            size     attr
 -------- ---------------- -------- -------

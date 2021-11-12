@@ -13,7 +13,7 @@ $ build.sh
 
 ```
 
-QEMU 4.2.1 monitor - type 'help' for more information
+QEMU 6.0.1 monitor - type 'help' for more information
 (qemu) info registers
  pc       00000000
  mhartid  00000000
