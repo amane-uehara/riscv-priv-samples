@@ -1,5 +1,5 @@
 #!/bin/sh
-riscv32-unknown-linux-gnu-gcc \
+riscv64-unknown-elf-gcc \
   -Os \
   -march=rv32i \
   -mabi=ilp32 \
@@ -9,7 +9,7 @@ riscv32-unknown-linux-gnu-gcc \
   -o build/start.o \
   -c start.s
 
-riscv32-unknown-linux-gnu-gcc \
+riscv64-unknown-elf-gcc \
   -Os \
   -march=rv32i \
   -mabi=ilp32 \

@@ -1,6 +1,6 @@
 BUILD   := build
 TARGET  := hello
-RVVER   := riscv32-unknown-linux-gnu
+RVVER   := riscv64-unknown-elf
 CC      := $(RVVER)-gcc -Os -march=rv32i -mabi=ilp32 -mcmodel=medany -ffunction-sections -fdata-sections -ffreestanding
 OUT     := -nostartfiles -nostdlib -nostdinc -static -lgcc -Wl,--nmagic -Wl,--gc-sections
 
