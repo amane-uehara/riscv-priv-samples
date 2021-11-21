@@ -7,7 +7,7 @@ $ make
 # run
 
 ```sh
-$ qemu-system-riscv32 -nographic -machine sifive_e -bios none -kernel build/timer
+$ qemu-system-riscv32 -nographic -machine sifive_e -bios none -kernel build/timer.elf
 ```
 
 # how to check timer
