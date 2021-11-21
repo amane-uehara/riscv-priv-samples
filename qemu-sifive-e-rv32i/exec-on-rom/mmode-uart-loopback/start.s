@@ -1,3 +1,4 @@
+.include "memory_map.s"
 .GLOBAL _start
 .GLOBAL _trap_vector
 .GLOBAL _uart_init
@@ -10,7 +11,7 @@ _start:
   bnez  t0      , _wait_for_intr
 
   # initialize stack pointer
-  la    sp      , _init_stack_ptr
+  li    sp      , CONST_INIT_STACK_PTR
 
   # interrupt disable
   csrr  t0      , mstatus
