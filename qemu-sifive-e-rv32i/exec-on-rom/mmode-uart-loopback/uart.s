@@ -32,6 +32,7 @@ _uart_init:
   ret
 
 _uart_send:
+  andi  a0 , a0 , 0xff
   li    a4 , CONST_UART_THR_ADDR
 
 _thr_check_loop:
