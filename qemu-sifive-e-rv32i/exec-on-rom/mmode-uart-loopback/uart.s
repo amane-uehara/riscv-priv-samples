@@ -36,6 +36,9 @@ _uart_send:
 
 _thr_check_loop:
   lw    a1 , 0(a4)
+  li    a2 , 0x80000000
+  and   a1 , a1, a2
+
   bne   a1 , zero , _thr_check_loop
 
   sw    a0 , 0(a4)
