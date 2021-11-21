@@ -47,11 +47,6 @@ main:
   csrw mstatus, t0
   csrw mie, zero
 
-  # timer interrupt delegation
-  li   t0, 0xFFFF # x = 0xffff
-  csrw mideleg, t0
-  csrw medeleg, t0
-
   # set trap vector
   la t0, trap_vector;
   csrw mtvec, t0
