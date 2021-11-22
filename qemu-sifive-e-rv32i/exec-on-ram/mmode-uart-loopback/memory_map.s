@@ -6,7 +6,7 @@
 # [M-MODE, S-MODE] plic priority addr
 # ADDR  : PLIC_BASE_ADDR + irq*4
 # VALUE : non-zero (1)
-# MEM[0x0C000028] = 0x00000001
+# MEM[0x0C00000C] = 0x00000001
 .equ CONST_PLIC_UART0_PRIORITY_ADDR , 0x0C00000C
 
 # [M-MODE] set uart's enable bit for this hart's.
